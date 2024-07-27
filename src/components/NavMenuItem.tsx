@@ -1,17 +1,27 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { MenuItemType } from "../types";
 import { SubMenu } from "./SubMenu";
+import { RouteContext } from "../context";
 
 export function NavMenuItem ({ item }: { item: MenuItemType }) {
   const [hovered, setHovered] = useState(false);
-
+  const { setRoute } = useContext(RouteContext);
+  const handleClick = (e) => {
+    e.preventDefault();
+    if ("href" in item) setRoute(item.href);
+  }
   return (
     <li
       onMouseOver={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
       {"href" in item 
-        ? <a href={item.href}>{item.icon} {item.label}</a>
+        ? <a 
+        href={item.href}
+        onClick={handleClick}
+      >
+        {item.icon} {item.label}
+      </a>
         : <>{item.icon} {item.label}</>
       }
       {item.description &&
