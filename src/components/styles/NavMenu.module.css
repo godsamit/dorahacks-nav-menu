@@ -1,0 +1,19 @@
+.nav {
+  width: 100%;
+  box-shadow: var(--box-shadow);
+}
+
+.menu {
+  gap: 0;
+}
+
+.menu li {
+  padding: 1rem;
+  position: relative;
+  cursor: pointer;
+}
+
+.menu li p {
+  font-size: 0.8rem;
+  font-weight: normal;
+}

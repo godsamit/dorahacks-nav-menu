@@ -1,0 +1,18 @@
+.subMenu {
+  display: block;
+  position: absolute;
+  background-color: white;
+  box-shadow: var(--box-shadow);
+  width: 100%;
+  min-width: 20rem;
+}
+
+.right {
+  top: 0;
+  left: 100%
+}
+
+.down {
+  top: 100%;
+  left: 0;
+}
