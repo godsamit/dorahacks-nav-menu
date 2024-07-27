@@ -4,10 +4,10 @@ import { MenuItem } from "./MenuItem";
 import classes from "./styles/SubMenu.module.css";
 
 export function SubMenu ({ 
-  items, direction, hovered, setHovered 
+  items, depth, hovered, setHovered 
 }: {
   items: MenuItemType[],
-  direction: "right" | "down", 
+  depth: number, 
   hovered: boolean, 
   setHovered: Dispatch<SetStateAction<boolean>>
 }) {
@@ -15,10 +15,10 @@ export function SubMenu ({
     <menu
       className={`
         ${classes.subMenu} 
-        ${direction === "right" ? classes.right : classes.down}
+        ${depth === 1 ? classes.down : classes.right}
       `}
       onMouseLeave={() => setHovered(false)}
     >
-      {items.map((item, index) => <MenuItem item={item} />)}
+      {items.map((item) => <MenuItem item={item} depth={depth+1} />)}
     </menu>;
 }

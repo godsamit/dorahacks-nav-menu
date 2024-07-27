@@ -3,7 +3,12 @@ import { MenuItemType } from "../types";
 import { SubMenu } from "./SubMenu";
 import { RouteContext } from "../context";
 
-export function MenuItem ({ item }: { item: MenuItemType }) {
+export function MenuItem ({ 
+  item, depth
+}: { 
+  item: MenuItemType,
+  depth: number
+}) {
   const [hovered, setHovered] = useState(false);
   const { setRoute } = useContext(RouteContext);
 
@@ -31,8 +36,8 @@ export function MenuItem ({ item }: { item: MenuItemType }) {
       }
       {"subMenu" in item && 
         <SubMenu 
-          items={item.subMenu} 
-          direction="right"
+          depth={depth}
+          items={item.subMenu}
           hovered={hovered}
           setHovered={setHovered}
         />
