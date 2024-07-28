@@ -28,12 +28,18 @@ export function MenuItem ({
           onClick={handleClick}
         >
           {item.icon} {item.label}
+          {item.description &&
+            <p>{item.description}</p>
+          }
         </a>
-        : <>{item.icon} {item.label}</>
+        : <>
+        {item.icon} {item.label}
+        {item.description &&
+          <p>{item.description}</p>
+        }
+        </>
       }
-      {item.description &&
-        <p>{item.description}</p>
-      }
+      
       {"subMenu" in item && 
         <SubMenu 
           depth={depth}

@@ -17,17 +17,17 @@ export type MenuItemType = LinkMenuItem | ParentMenuItem;
 export const MenuContent: MenuItemType[] = [
   {
     label: "Log In",
-    href: "/",
+    href: "/login",
   }, {
     label: "BUIDLs", 
     subMenu: [
       {
         label: "All BUIDLs",
-        href: "/",
+        href: "/allBuidls",
         description: "View All BUIDLs" 
       }, {
         label: "BUIDL Collections",
-        href: "/",
+        href: "/buidlCollections",
         description: "View Specially Curated BUIDLs"
       }
     ]
@@ -36,29 +36,29 @@ export const MenuContent: MenuItemType[] = [
     subMenu: [
       {
         label: "Quadratic Funding",
-        href: "/",
+        href: "/quadraticFunding",
         description: "Support multi-chain innovation and participate in quadratic funding rounds."
       }, {
         label: "Mini Grant",
-        href: "/",
+        href: "/miniGrant",
         description: "Support creative but solid ideas from very early-stage hackers teams."
       }, {
         label: "Grant DAOs",
         description: "Long-term funding programs and quadratic funding rounds from major blockchain ecosystems.",
         subMenu: [
           {
-            label: "Aptos Grant DAO",
-            href: "/",
-            description: "Fund Aptos ecosystem: public goods, infrastructures, and applications with community quadratic governance."
+            label: "Aptos Grant DAOs",
+            href: "/aptosGrantDAO",
+            description: "Fund Aptos ecosystems: public goods, infrastructures, and applications with community quadratic governance."
           }, {
-            label: "Injective Grant DAO",
-            href: "/",
+            label: "Injective Grant DAOs",
+            href: "/injectiveGrantDAO",
             description: "Fund Innovative Defi Protocols with Injective."
           }
         ]
       }, {
         label: "ATOM Economic Zone Quadratic Grant",
-        href: "/",
+        href: "/atomQuadraticGrant",
         description: "Build and contribute to public goods and emerging appchains to expand the AEZ and create a prosperous appchain future."
       }
     ]
@@ -67,21 +67,21 @@ export const MenuContent: MenuItemType[] = [
     subMenu: [
       {
         label: "DAO Bounties",
-        href: "/"
+        href: "/DAOBounties"
       }, {
         label: "Bug Bounties",
-        href: "/"
+        href: "/bugBounties"
       }, {
         label: "Mini Bounties",
-        href: "/"
+        href: "/miniBounties"
       }
     ]
   }, {
     label: "Hackathons",
-    href: "/",
+    href: "/hackathons",
   }, {
     label: "Ideas",
-    href: "/",
+    href: "/ideas",
   }, {
     label: "Live",
     subMenu: [
