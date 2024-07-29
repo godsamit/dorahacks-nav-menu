@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from "react";
 import { MenuItemType } from "../types";
 import { MenuItem } from "./MenuItem";
 import classes from "./styles/SubMenu.module.css";
@@ -11,13 +10,13 @@ export function SubMenu ({
   open: boolean, 
   currentIndex: number
 }) {
-  return open &&
+  return (
     <menu
       className={`
         ${classes.subMenu} 
         ${depth === 1 ? classes.down : classes.right}
+        ${open && classes.open}
       `}
-      // onMouseLeave={() => setHovered(false)}
     >
       {items.map((item, index) => (
         <MenuItem 
@@ -28,5 +27,6 @@ export function SubMenu ({
           open={open}
         />
       ))}
-    </menu>;
+    </menu>
+  );
 }

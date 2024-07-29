@@ -1,13 +1,19 @@
-import { useContext, useEffect, useRef, useState } from "react";
-import { MenuItemType } from "../types";
+import { RefObject, useContext, useEffect, useRef, useState } from "react";
+import { MenuItemType, LinkMenuItem, ParentMenuItem } from "../types";
 import { SubMenu } from "./SubMenu";
 import { RouteContext } from "../context";
 import { usePrevious, useSubMenu } from "./hooks";
 
 export function MenuItem ({ 
   item, depth, index, currentIndex, open
+}: {
+  item: MenuItemType,
+  depth: number,
+  index: number,
+  currentIndex: number,
+  open: boolean,
 }) {
-  const elementRef = useRef(null);
+  const elementRef = useRef<HTMLAnchorElement | HTMLButtonElement>(null);
   const prevIndex = usePrevious(currentIndex) ?? 0;
   const prevOpen = usePrevious(open);
 
@@ -15,11 +21,12 @@ export function MenuItem ({
 
   useEffect(() => {
     if (elementRef.current 
+      && document.activeElement !== document.body // only call focus when user uses keyboard navigation
       && (prevIndex !== currentIndex || prevOpen !== open) // focus on index change, or open state change
       && isCurrent) {
       elementRef.current.focus();
     }
-  }, [isCurrent, currentIndex, prevIndex, open, prevOpen]);
+  }, [isCurrent, currentIndex, prevIndex, prevOpen, open]);
 
   return (
     <>
@@ -33,7 +40,13 @@ export function MenuItem ({
   );
 }
 
-function MenuItemLink ({ item, elementRef, isCurrent }) {
+function MenuItemLink ({ 
+  item, elementRef, isCurrent
+}: {
+  item: LinkMenuItem,
+  elementRef: RefObject<HTMLAnchorElement | HTMLButtonElement>,
+  isCurrent: boolean,
+}) {
   const { setRoute } = useContext(RouteContext);
 
   const handleClick = (e) => {
@@ -45,58 +58,66 @@ function MenuItemLink ({ item, elementRef, isCurrent }) {
     <li
       role="none"
     >
-    <a 
-      ref={elementRef} 
-      tabIndex={isCurrent ? 0 : -1}
-      href={item.href}
-      onClick={handleClick}
-      role="menuitem"
-    >
-      {item.icon} {item.label}
-      {item.description &&
-        <p>{item.description}</p>
-      }
-    </a>
-    </li>
-  )
-}
-
-function MenuItemWithSubMenu ({ item, elementRef, depth, isCurrent }) {
-    const [open, currentIndex, {
-      handleMouseEnter,
-      handleMouseLeave,
-      handleBlur,
-      handleKeyDown,
-    }] = useSubMenu(item.subMenu, elementRef);
-
-    return (
-      <li
-        role="none"
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        onKeyDown={handleKeyDown}
-        onBlur={handleBlur}
-      >
-        <button
-          ref={elementRef} 
+      {"href" in item &&
+        <a 
+          ref={elementRef as RefObject<HTMLAnchorElement>} 
           tabIndex={isCurrent ? 0 : -1}
-          role="menu"
+          href={item.href}
+          onClick={handleClick}
+          role="menuitem"
         >
           {item.icon} {item.label}
           {item.description &&
             <p>{item.description}</p>
           }
-        </button>
-        
-        {"subMenu" in item && 
-          <SubMenu 
-            depth={depth}
-            items={item.subMenu}
-            open={open}
-            currentIndex={currentIndex}
-          />
-        }
-      </li>
-    );
+        </a>
+      }
+    </li>
+  )
+}
 
+function MenuItemWithSubMenu ({ 
+  item, elementRef, depth, isCurrent
+}: {
+  item: ParentMenuItem,
+  elementRef: RefObject<HTMLAnchorElement | HTMLButtonElement>,
+  depth: number,
+  isCurrent: boolean,
+}) {
+  const [open, currentIndex, {
+    handleMouseEnter,
+    handleMouseLeave,
+    handleBlur,
+    handleKeyDown,
+  }] = useSubMenu(item.subMenu, elementRef, depth === 1 ? "vertical" : "horizontal");
+
+  return (
+    <li
+      role="none"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onKeyDown={handleKeyDown}
+      onBlur={handleBlur}
+    >
+      <button
+        ref={elementRef as RefObject<HTMLButtonElement>} 
+        tabIndex={isCurrent ? 0 : -1}
+        role="menu"
+      >
+        {item.icon} {item.label}
+        {item.description &&
+          <p>{item.description}</p>
+        }
+      </button>
+      
+      {"subMenu" in item && 
+        <SubMenu 
+          depth={depth}
+          items={item.subMenu}
+          open={open}
+          currentIndex={currentIndex}
+        />
+      }
+    </li>
+  );
 }

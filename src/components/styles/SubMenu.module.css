@@ -1,10 +1,14 @@
 .subMenu {
-  display: block;
+  display: none;
   position: absolute;
   background-color: white;
   box-shadow: var(--box-shadow);
   width: 100%;
   min-width: 20rem;
+}
+
+.subMenu p {
+  margin-top: 0.25rem;
 }
 
 .right {
@@ -15,4 +19,8 @@
 .down {
   top: 100%;
   left: 0;
+}
+
+.open {
+  display: block;
 }

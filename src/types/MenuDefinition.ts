@@ -4,11 +4,11 @@ interface BaseMenuItem {
   description?: string;
 }
 
-interface LinkMenuItem extends BaseMenuItem {
+export interface LinkMenuItem extends BaseMenuItem {
   href: string;
 }
 
-interface ParentMenuItem extends BaseMenuItem {
+export interface ParentMenuItem extends BaseMenuItem {
   subMenu: MenuItemType[];
 }
 

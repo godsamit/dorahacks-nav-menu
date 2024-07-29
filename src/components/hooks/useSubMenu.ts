@@ -1,83 +1,92 @@
-import { useState } from "react";
+// Custom hook that builds on useNavMenuBar to introduce more nuanced behavior for sub menus
+// All behaviors follow the web a11y specification on: https://www.w3.org/WAI/ARIA/apg/patterns/menubar/
 
-export function useSubMenu(options: unknown[], triggerRef: unknown) {
-  const [currentIndex, setCurrentIndex] = useState(0);
+import { RefObject, useState } from "react";
+import { useNavMenuBar } from "./useNavMenuBar";
+
+type SubMenuReturnType = [boolean, number, {
+  handleMouseEnter: () => void,
+  handleMouseLeave: () => void,
+  handleBlur: (e: FocusEvent) => void,
+  handleKeyDown: (e: KeyboardEvent) => void,
+}]
+
+// needs the triggerRef to go back to when the subMenu loses focus.
+// subMenuDirection is the direction where the subMenu is opened, and arrow keys will function differently
+export function useSubMenu(
+  options: unknown[], 
+  triggerRef: RefObject<HTMLButtonElement>, 
+  subMenuDirection: "vertical" | "horizontal"
+): SubMenuReturnType {
+  const [currentIndex, handleNavBarKeyDown, { goToEnd }] = useNavMenuBar(options)
   const [open, setOpen] = useState(false);
-
-  const goToStart = () => setCurrentIndex(0);
-
-  const goToEnd = () => setCurrentIndex(options.length - 1);
-
-  const goToPrev = () => {
-    const index = currentIndex === 0 ? options.length - 1 : currentIndex - 1;
-    setCurrentIndex(index);
-  }
-
-  const goToNext = () => {
-    const index = currentIndex === options.length - 1 ? 0 : currentIndex + 1;
-    setCurrentIndex(index);
-  }
 
   const handleMouseEnter = () => setOpen(true);
 
   const handleMouseLeave = () => setOpen(false);
 
-  const handleBlur = (e) => {
-    if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+  const handleBlur = (e: FocusEvent) => {
+    const currentTarget = e.currentTarget as HTMLElement;
+    if (!currentTarget.contains(e.relatedTarget as Node)) {
       setOpen(false);
     }
   }
 
-  const handleKeyDown = (e) => {
-    console.log(document.activeElement)
+  const openSubMenu = (e: KeyboardEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setOpen(true);
+  }
+
+  const closeSubMenu = (e: KeyboardEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setOpen(true);
+  }
+
+  const handleKeyDown = (e: KeyboardEvent) => {
     if (!open) {
       switch(e.code) {
         case "Enter":
         case "Space":
-        case "ArrowDown":
-          e.preventDefault();
-          e.stopPropagation();
-          setOpen(true);
-          goToStart();
+          openSubMenu(e);
           break;
-        case "ArrowUp": 
-          e.preventDefault();
-          e.stopPropagation();
-          setOpen(true);
-          goToEnd();
-          break;
+      }
+      if (subMenuDirection === "vertical") {
+        switch(e.code) {
+          case "ArrowDown": 
+            openSubMenu(e);
+            break;
+          case "ArrowUp":
+            closeSubMenu(e);
+            goToEnd()
+            break;
+        }
+      }
+
+      if (subMenuDirection === "horizontal") {
+        switch(e.code) {
+          case "ArrowRight": 
+            openSubMenu(e);
+            break;
+          case "ArrowLeft":
+            closeSubMenu(e);
+            goToEnd();
+            break;
+        }
       }
       return;
     } else {
-      e.stopPropagation();
-      switch (e.code) {
-        case "Escape": 
-          e.preventDefault();
-          setOpen(false);
-          triggerRef.current.focus();
-          break;
+      switch(e.code) {
         case "ArrowLeft":
-        case "ArrowUp":
-          e.preventDefault();
-          goToPrev();
-          break;
         case "ArrowRight":
-        case "ArrowDown": 
-          e.preventDefault();
-          goToNext();
+          return;
+        case "Escape": 
+          closeSubMenu(e);
+          triggerRef.current?.focus();
           break;
-        case "End":
-          e.preventDefault();
-          goToEnd();
-          break;
-        case "Home":
-          e.preventDefault();
-          goToStart();
-          break;
-        default:
-                // match(e);
-        break;
       }
+      handleNavBarKeyDown(e);
     }
   }
 

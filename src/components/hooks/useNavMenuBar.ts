@@ -1,8 +1,16 @@
 // Custom hook to implement a roving index and manages keyboard controls
+// Key handlers follow the web a11y specification on: https://www.w3.org/WAI/ARIA/apg/patterns/menubar/
 
 import { useState } from "react";
 
-export function useNavMenuBar(options: unknown[]) {
+type NavMenuBarReturnType = [number, (e: KeyboardEvent) => void, {
+  goToStart: () => void,
+  goToEnd: () => void,
+  goToPrev: () => void,
+  goToNext: () => void
+}]
+
+export function useNavMenuBar(options: unknown[]) : NavMenuBarReturnType {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const goToStart = () => setCurrentIndex(0);
@@ -19,8 +27,7 @@ export function useNavMenuBar(options: unknown[]) {
     setCurrentIndex(index);
   }
 
-  const handleKeyDown = (e) => {
-    console.log(e);
+  const handleKeyDown = (e: KeyboardEvent) => {
     e.stopPropagation();
     switch (e.code) {
       case "ArrowLeft":
@@ -46,5 +53,10 @@ export function useNavMenuBar(options: unknown[]) {
     }
   }
 
-  return [currentIndex, handleKeyDown];
+  return [currentIndex, handleKeyDown, {
+    goToStart,
+    goToEnd,
+    goToPrev,
+    goToNext
+  }];
 }
