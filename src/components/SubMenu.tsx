@@ -12,14 +12,11 @@ export function SubMenu ({
 }) {
   return (
     <menu
-      className={`
-        ${classes.subMenu} 
-        ${depth === 1 ? classes.down : classes.right}
-        ${open && classes.open}
-      `}
+      className={`${classes.subMenu} ${depth === 1 ? classes.down : classes.right} ${open && classes.open}`}
     >
       {items.map((item, index) => (
         <MenuItem 
+          key={item.label}
           item={item} 
           depth={depth+1} 
           index={index}

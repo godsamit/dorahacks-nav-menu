@@ -1,0 +1,14 @@
+{
+  "globals": {
+    "IconMdiChevronDown": true,
+    "IconMdiLoginVariant": true,
+    "IconMdiChevronRight": true,
+    "IconMdiLightBulbOn": true,
+    "IconMdiLightbulbOn": true,
+    "IconMdiBuild": true,
+    "IconMdiMoney": true,
+    "IconFluentLive24Filled": true,
+    "IconMdiSkull": true,
+    "IconMdiCode": true
+  }
+}

@@ -1,8 +1,9 @@
-import { RefObject, useContext, useEffect, useRef, useState } from "react";
+import { RefObject, useContext, useEffect, useRef } from "react";
 import { MenuItemType, LinkMenuItem, ParentMenuItem } from "../types";
 import { SubMenu } from "./SubMenu";
 import { RouteContext } from "../context";
 import { usePrevious, useSubMenu } from "./hooks";
+import classes from "./styles/MenuItem.module.css";
 
 export function MenuItem ({ 
   item, depth, index, currentIndex, open
@@ -19,6 +20,7 @@ export function MenuItem ({
 
   const isCurrent = index === currentIndex;
 
+  // effect to manage the current focused element
   useEffect(() => {
     if (elementRef.current 
       && document.activeElement !== document.body // only call focus when user uses keyboard navigation
@@ -65,8 +67,12 @@ function MenuItemLink ({
           href={item.href}
           onClick={handleClick}
           role="menuitem"
+          className={`${classes.itemButton}`}
         >
-          {item.icon} {item.label}
+          <div>
+            {item.Icon ?? null}
+            <div>{item.label}</div>
+          </div>
           {item.description &&
             <p>{item.description}</p>
           }
@@ -104,12 +110,23 @@ function MenuItemWithSubMenu ({
         tabIndex={isCurrent ? 0 : -1}
         role="menu"
       >
-        {item.icon} {item.label}
-        {item.description &&
-          <p>{item.description}</p>
-        }
+        <div 
+          className={`${classes.itemButton}`}
+        >
+          <div>
+          {item.Icon ?? null}
+          <div>{item.label}</div>
+          {depth === 1 
+            ? <IconMdiChevronDown className={`${open ? classes.open : ""}`} />
+            : <IconMdiChevronRight className={`${open ? classes.open : ""}`} />
+          }
+          </div>
+          {item.description &&
+            <p>{item.description}</p>
+          }
+        </div>
       </button>
-      
+
       {"subMenu" in item && 
         <SubMenu 
           depth={depth}

@@ -1,6 +1,8 @@
+import { ReactElement } from "react";
+
 interface BaseMenuItem {
   label: string;
-  icon?: string;
+  Icon?: ReactElement; // Use unplugin auto-imported icon
   description?: string;
 }
 
@@ -18,8 +20,10 @@ export const MenuContent: MenuItemType[] = [
   {
     label: "Log In",
     href: "/login",
+    Icon: <IconMdiLoginVariant />
   }, {
     label: "BUIDLs", 
+    Icon: <IconMdiBuild />,
     subMenu: [
       {
         label: "All BUIDLs",
@@ -33,6 +37,7 @@ export const MenuContent: MenuItemType[] = [
     ]
   }, {
     label: "Grants",
+    Icon: <IconMdiMoney />,
     subMenu: [
       {
         label: "Quadratic Funding",
@@ -64,6 +69,7 @@ export const MenuContent: MenuItemType[] = [
     ]
   }, {
     label: "Bounties",
+    Icon: <IconMdiSkull />,
     subMenu: [
       {
         label: "DAO Bounties",
@@ -81,12 +87,15 @@ export const MenuContent: MenuItemType[] = [
     ]
   }, {
     label: "Hackathons",
+    Icon: <IconMdiCode />,
     href: "/hackathons",
   }, {
     label: "Ideas",
     href: "/ideas",
+    Icon: <IconMdiLightbulbOn />
   }, {
     label: "Live",
+    Icon: <IconFluentLive24Filled />,
     subMenu: [
       {
         label: "Binance Live",
