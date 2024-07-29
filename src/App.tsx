@@ -10,6 +10,7 @@ function App() {
     <RouteContext.Provider value={{ route, setRoute }}>
       <NavMenu items={MenuContent} />
       <div>{route}</div>
+      <button>Test another tabbale element on the page</button>
     </RouteContext.Provider>
   );
 }

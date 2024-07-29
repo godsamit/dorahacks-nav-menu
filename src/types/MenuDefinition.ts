@@ -67,13 +67,16 @@ export const MenuContent: MenuItemType[] = [
     subMenu: [
       {
         label: "DAO Bounties",
-        href: "/DAOBounties"
+        href: "/DAOBounties",
+        description: "The best way to work for DAOs, coordinate with the community, and get rewarded.",
       }, {
         label: "Bug Bounties",
-        href: "/bugBounties"
+        href: "/bugBounties",
+        description: "View all Bug Bounties.",
       }, {
         label: "Mini Bounties",
-        href: "/miniBounties"
+        href: "/miniBounties",
+        description: "Let's help each other out! Crowdsource solutions and solve challenges to get rewarded."
       }
     ]
   }, {

@@ -69,3 +69,14 @@ a {
 .flex-column {
   display: flex
 }
+
+button {
+  font-family: unset;
+  border: unset;
+  background-color: unset;
+  font-size: unset;
+  font-weight: unset;
+  padding: unset;
+  text-align: left;
+  cursor: pointer;
+}
