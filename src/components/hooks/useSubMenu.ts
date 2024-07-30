@@ -1,16 +1,17 @@
 // Custom hook that builds on useNavMenuBar to introduce more nuanced behavior for sub menus
 // All behaviors follow the web a11y specification on: https://www.w3.org/WAI/ARIA/apg/patterns/menubar/
 
-import { RefObject, useState } from "react";
+import { FocusEventHandler, KeyboardEventHandler, MouseEventHandler, RefObject, useState } from "react";
 import { useNavMenuBar } from "./useNavMenuBar";
 import { useMediaQueryContext } from "./useMediaQueryContext";
 
 type SubMenuReturnType = [boolean, number, {
   handleMouseEnter: () => void,
   handleMouseLeave: () => void,
-  handleClick: (e: MouseEvent) => void,
-  handleBlur: (e: FocusEvent) => void,
-  handleKeyDown: (e: KeyboardEvent) => void,
+  handleClick: MouseEventHandler<HTMLLIElement>,
+  handleFocus: FocusEventHandler<HTMLLIElement>,
+  handleBlur: FocusEventHandler<HTMLLIElement>,
+  handleKeyDown: KeyboardEventHandler<HTMLLIElement>,
 }]
 
 // needs the triggerRef to go back to when the subMenu loses focus.
@@ -20,7 +21,7 @@ export function useSubMenu(
   triggerRef: RefObject<HTMLButtonElement>, 
   subMenuDirection: "vertical" | "horizontal"
 ): SubMenuReturnType {
-  const [currentIndex, handleNavBarKeyDown, { goToEnd }] = useNavMenuBar(options)
+  const [currentIndex, handleNavBarKeyDown, { goToPrev, goToNext, goToEnd }] = useNavMenuBar(options)
 
   const [open, setOpen] = useState(false);
 
@@ -28,11 +29,23 @@ export function useSubMenu(
 
   const handleMouseEnter = () => isLargeScreen ? setOpen(true) : null;
   const handleMouseLeave = () => isLargeScreen ? setOpen(false) : null;
-  const handleClick = (e: MouseEvent) => {
+  const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     setOpen(!open);
   };
-  const handleBlur = (e: FocusEvent) => {
+
+  const handleFocus = (e: React.FocusEvent) => {
+    e.stopPropagation();
+    const relatedTarget = e.relatedTarget as HTMLElement;
+    const target = e.target as HTMLElement;
+    const relatedDepth = relatedTarget?.dataset?.depth;
+    const targetDepth = target?.dataset?.depth
+    if (relatedDepth && targetDepth && relatedDepth > targetDepth) {
+      setOpen(true);
+    }
+  }
+
+  const handleBlur = (e: React.FocusEvent) => {
     if (isLargeScreen) {
       const currentTarget = e.currentTarget as HTMLElement;
       if (!currentTarget.contains(e.relatedTarget as Node)) {
@@ -41,17 +54,18 @@ export function useSubMenu(
     }
   };
 
-  const openSubMenu = (e: KeyboardEvent) => {
+  const openSubMenu = (e: React.KeyboardEvent) => {
     e.preventDefault();
     e.stopPropagation();
     setOpen(true);
   };
-  const closeSubMenu = (e: KeyboardEvent) => {
+  const closeSubMenu = (e: React.KeyboardEvent) => {
     e.preventDefault();
     e.stopPropagation();
     setOpen(false);
   };
-  const handleKeyDown = (e: KeyboardEvent) => {
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
     if (!open) {
       switch(e.code) {
         case "Enter":
@@ -66,8 +80,8 @@ export function useSubMenu(
             openSubMenu(e);
             break;
           case "ArrowUp":
-            closeSubMenu(e);
-            goToEnd()
+            openSubMenu(e);
+            goToEnd();
             break;
         }
       }
@@ -78,20 +92,54 @@ export function useSubMenu(
             openSubMenu(e);
             break;
           case "ArrowLeft":
-            closeSubMenu(e);
+            openSubMenu(e);
             goToEnd();
             break;
         }
       }
       return;
     } else {
+      if (subMenuDirection === "vertical") {
+        switch(e.code) {
+          case "ArrowLeft":
+          case "ArrowRight":
+            return;
+          case "ArrowDown": 
+            openSubMenu(e);
+            break;
+          case "ArrowUp":
+            triggerRef.current?.focus();
+            closeSubMenu(e);
+            break;
+        }
+      }
+
+      if (subMenuDirection === "horizontal") {
+        switch(e.code) {
+          case "ArrowUp":
+            e.stopPropagation();
+            e.preventDefault();
+            goToPrev();
+            break;
+          case "ArrowDown": 
+            e.stopPropagation();
+            e.preventDefault();
+            goToNext();
+            break;
+          case "ArrowRight": 
+            openSubMenu(e);
+            break;
+          case "ArrowLeft":
+            triggerRef.current?.focus();
+            closeSubMenu(e);
+            break;
+        }
+      }
+
       switch(e.code) {
-        case "ArrowLeft":
-        case "ArrowRight":
-          return;
         case "Escape": 
-          closeSubMenu(e);
           triggerRef.current?.focus();
+          closeSubMenu(e);
           break;
       }
       handleNavBarKeyDown(e);
@@ -102,6 +150,7 @@ export function useSubMenu(
     handleMouseEnter,
     handleMouseLeave,
     handleClick,
+    handleFocus,
     handleBlur,
     handleKeyDown,
   }]

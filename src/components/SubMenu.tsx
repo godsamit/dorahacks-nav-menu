@@ -12,6 +12,7 @@ export function SubMenu ({
 }) {
   return (
     <menu
+      role="menu"
       className={`${classes.subMenu} ${depth === 1 ? classes.down : classes.right} ${open && classes.open}`}
     >
       {items.map((item, index) => (

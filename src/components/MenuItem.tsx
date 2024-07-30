@@ -12,7 +12,7 @@ export function MenuItem ({
   depth: number,
   index: number,
   currentIndex: number,
-  open: boolean,
+  open?: boolean,
 }) {
   const elementRef = useRef<HTMLAnchorElement | HTMLButtonElement>(null);
   const prevIndex = usePrevious(currentIndex) ?? 0;
@@ -36,16 +36,17 @@ export function MenuItem ({
         && <MenuItemWithSubMenu item={item} elementRef={elementRef} depth={depth} isCurrent={isCurrent} />
       }
       {"href" in item 
-        && <MenuItemLink item={item} elementRef={elementRef} isCurrent={isCurrent}/>
+        && <MenuItemLink item={item} elementRef={elementRef} depth={depth} isCurrent={isCurrent}/>
       }
     </>
   );
 }
 
 function MenuItemLink ({ 
-  item, elementRef, isCurrent
+  item, depth, elementRef, isCurrent
 }: {
   item: LinkMenuItem,
+  depth: number,
   elementRef: RefObject<HTMLAnchorElement | HTMLButtonElement>,
   isCurrent: boolean,
 }) {
@@ -69,6 +70,7 @@ function MenuItemLink ({
           onClick={handleClick}
           role="menuitem"
           className={`${classes.itemButton}`}
+          data-depth={depth}
         >
           <div>
             {item.Icon ?? null}
@@ -99,6 +101,7 @@ function MenuItemWithSubMenu ({
     handleMouseEnter,
     handleMouseLeave,
     handleClick,
+    handleFocus,
     handleBlur,
     handleKeyDown,
   }] = useSubMenu(item.subMenu, elementRef, subMenuOrientation);
@@ -110,13 +113,17 @@ function MenuItemWithSubMenu ({
       onMouseLeave={handleMouseLeave}
       onClick={handleClick}
       onKeyDown={handleKeyDown}
+      onFocus={handleFocus}
       onBlur={handleBlur}
     >
       <button
         className={`${classes.itemButton} ${open ? classes.open : ""}`}
         ref={elementRef as RefObject<HTMLButtonElement>} 
         tabIndex={isCurrent ? 0 : -1}
-        role="menu"
+        role="menuitem"
+        aria-haspopup={true}
+        aria-expanded={open}
+        data-depth={depth}
       >
         <div>
           {item.Icon ?? null}

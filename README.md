@@ -2,5 +2,9 @@
 
 How to run the project:
 
-`npm i`
-`npm run dev`
+Command line:
+
+```
+npm i
+npm run dev
+```

@@ -15,7 +15,7 @@
   --gray: #ddd;
 
   --primary-color: #ff761c;
-  --primary-color-text: #ab2200;
+  --primary-color-text: #973c00;
   --primary-color-background: #ff761c10;
   --primary-color-hover: #ff6500;
   --box-shadow:
@@ -47,6 +47,7 @@ h1 {
 nav {
   top: 0;
   position: sticky;
+  background-color: white;
 }
 
 li {
@@ -60,13 +61,18 @@ menu {
   padding-inline-start: 0;
 }
 
-a {
+nav a {
   text-decoration: none;
   color: var(--text-color);
 }
 
 img, svg {
   display: block;
+}
+
+main {
+  width: 65%;
+  margin: 10rem auto;
 }
 
 button {

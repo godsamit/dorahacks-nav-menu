@@ -13,7 +13,7 @@
   }
 }
 
-.nav > div:first-child {
+.nav > a:first-child {
   padding: 1rem;
 }
 

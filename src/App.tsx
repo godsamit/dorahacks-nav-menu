@@ -1,5 +1,6 @@
 import { MenuContent } from './types';
 import { NavMenu } from './components/NavMenu';
+import { TaskSummary } from './components/TaskSummary';
 import { useState } from 'react';
 import { RouteContext, MediaQueryProvider } from './context';
 import './App.css';
@@ -10,8 +11,7 @@ function App() {
     <MediaQueryProvider query={"(min-width: 800px)"}>
       <RouteContext.Provider value={{ route, setRoute }}>
         <NavMenu items={MenuContent} />
-        <div>{route}</div>
-        <button>Test another tabbale element on the page</button>
+        <TaskSummary currentRoute={route} />
       </RouteContext.Provider>
     </MediaQueryProvider>
   );
