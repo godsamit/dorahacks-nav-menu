@@ -12,6 +12,8 @@
     "IconMdiCode": true,
     "IconDoraAptos": true,
     "IconDoraInjective": true,
-    "IconDoraLogo": true
+    "IconDoraLogo": true,
+    "IconMdiMenu": true,
+    "IconMdiClose": true
   }
 }

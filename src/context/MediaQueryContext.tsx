@@ -2,8 +2,7 @@ import { createContext, useState, useEffect } from "react";
 
 export const MediaQueryContext = createContext<boolean | undefined>(undefined);
 
-
-export const MediaQueryProvider = ({ query, children }: { query: string, children: React.ReactNode }) => {
+export function MediaQueryProvider ({ query, children }: { query: string, children: React.ReactNode }) {
   const [matches, setMatches] = useState<boolean>(() => window.matchMedia(query).matches);
 
   useEffect(() => {
@@ -12,9 +11,9 @@ export const MediaQueryProvider = ({ query, children }: { query: string, childre
       setMatches(event.matches);
     };
 
-    mediaQueryList.addEventListener('change', listener);
+    mediaQueryList.addEventListener("change", listener);
     return () => {
-      mediaQueryList.removeEventListener('change', listener);
+      mediaQueryList.removeEventListener("change", listener);
     };
   }, [query]);
 

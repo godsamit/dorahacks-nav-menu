@@ -12,10 +12,12 @@ declare global {
   const IconMdiBuild: typeof import('~icons/mdi/build.jsx')['default']
   const IconMdiChevronDown: typeof import('~icons/mdi/chevron-down.jsx')['default']
   const IconMdiChevronRight: typeof import('~icons/mdi/chevron-right.jsx')['default']
+  const IconMdiClose: typeof import('~icons/mdi/close.jsx')['default']
   const IconMdiCode: typeof import('~icons/mdi/code.jsx')['default']
   const IconMdiLightBulbOn: typeof import('~icons/mdi-light/bulb-on.jsx')['default']
   const IconMdiLightbulbOn: typeof import('~icons/mdi/lightbulb-on.jsx')['default']
   const IconMdiLoginVariant: typeof import('~icons/mdi/login-variant.jsx')['default']
+  const IconMdiMenu: typeof import('~icons/mdi/menu.jsx')['default']
   const IconMdiMoney: typeof import('~icons/mdi/money.jsx')['default']
   const IconMdiSkull: typeof import('~icons/mdi/skull.jsx')['default']
 }

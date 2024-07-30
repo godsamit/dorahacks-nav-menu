@@ -1,34 +1,97 @@
+/* NavBar */
+
 .nav {
   width: 100%;
   box-shadow: var(--box-shadow);
   display: flex;
   flex-direction: column;
-  gap: 1rem;
   align-items: center;
+  position: fixed;
+  top: 0;
+  background-color: white;
 }
 
 @media (min-width: 800px) {
   .nav {
+    top: 0;
+    position: sticky;
     flex-direction: row;
+    gap: 1rem;
   }
 }
 
-.nav > a:first-child {
+/* NavBar */
+
+/* Dorahacks Icon, with button to expand/collapse on mobile */
+
+.nav > div:first-child {
   padding: 1rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  top: 0;
+  position: sticky;
+  background-color: white;
+  z-index: 1;
+}
+
+.nav > div:first-child svg {
+  font-size: 1.5rem;
+}
+
+@media (min-width: 800px) {
+  .nav > div:first-child {
+    position: static;
+    z-index: 0;
+    width: auto;
+  }
+}
+
+/* Dorahacks Icon, with button to expand/collapse on mobile */
+
+/* Outmost Menu Bar */
+
+.nav > menu {
+  height: 100vh;
+  overflow: auto;
+}
+
+@media (min-width: 800px) {
+  .nav > menu {
+    height: auto;
+    overflow: visible;
+  }
 }
 
 .menu {
   gap: 0;
-  display: flex;
+  display: none;
   width: 100%;
   flex-direction: column;
+  background-color: white;
 }
 
 @media (min-width: 800px) {
   .menu {
+    display: flex;
     flex-direction: row;
   }
 }
+
+.open {
+  display: block;
+}
+
+@media (min-width: 800px) {
+  .open {
+    display: flex;
+  }
+}
+
+/* Outmost Menu Bar */
+
+/* First Level MenuItem Styles */
 
 .menu > li {
   padding: 1rem;
@@ -41,6 +104,11 @@
     color: var(--primary-color-text);
   }
 }
+
+/* First Level MenuItem Styles */
+
+
+/* All Level MenuItem Styles */
 
 .menu li {
   position: relative;
@@ -57,3 +125,5 @@
   font-size: 0.9rem;
   font-weight: normal;
 }
+
+/* First Level MenuItem Styles */

@@ -3,14 +3,14 @@ import { MenuItem } from "./MenuItem";
 import classes from "./styles/SubMenu.module.css";
 
 export function SubMenu ({ 
-  items, depth, open, currentIndex
+  items, depth, open, hasTransitionedIn, currentIndex
 }: {
   items: MenuItemType[],
   depth: number, 
   open: boolean, 
   currentIndex: number
 }) {
-  return (
+  return (open &&
     <menu
       role="menu"
       className={`${classes.subMenu} ${depth === 1 ? classes.down : classes.right} ${open && classes.open}`}

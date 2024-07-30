@@ -1,7 +1,6 @@
-import { RefObject, useContext, useEffect, useRef } from "react";
+import { RefObject, useEffect, useRef } from "react";
 import { MenuItemType, LinkMenuItem, ParentMenuItem } from "../types";
 import { SubMenu } from "./SubMenu";
-import { RouteContext } from "../context";
 import { useMediaQueryContext, usePrevious, useSubMenu } from "./hooks";
 import classes from "./styles/MenuItem.module.css";
 
@@ -47,17 +46,9 @@ function MenuItemLink ({
 }: {
   item: LinkMenuItem,
   depth: number,
-  elementRef: RefObject<HTMLAnchorElement | HTMLButtonElement>,
+  elementRef: RefObject<HTMLAnchorElement>,
   isCurrent: boolean,
 }) {
-  const { setRoute } = useContext(RouteContext);
-
-  const handleClick = (e) => {
-    e.stopPropagation();
-    e.preventDefault();
-    if ("href" in item) setRoute(item.href);
-  };
-
   return (
     <li
       role="none"
@@ -67,10 +58,10 @@ function MenuItemLink ({
           ref={elementRef as RefObject<HTMLAnchorElement>} 
           tabIndex={isCurrent ? 0 : -1}
           href={item.href}
-          onClick={handleClick}
           role="menuitem"
           className={`${classes.itemButton}`}
           data-depth={depth}
+          data-testid={item.label}
         >
           <div>
             {item.Icon ?? null}
@@ -89,7 +80,7 @@ function MenuItemWithSubMenu ({
   item, elementRef, depth, isCurrent
 }: {
   item: ParentMenuItem,
-  elementRef: RefObject<HTMLAnchorElement | HTMLButtonElement>,
+  elementRef: RefObject<HTMLButtonElement>,
   depth: number,
   isCurrent: boolean,
 }) {
@@ -124,6 +115,7 @@ function MenuItemWithSubMenu ({
         aria-haspopup={true}
         aria-expanded={open}
         data-depth={depth}
+        data-testid={item.label}
       >
         <div>
           {item.Icon ?? null}

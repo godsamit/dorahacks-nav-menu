@@ -14,7 +14,7 @@
   --text-color: #222;
   --gray: #ddd;
 
-  --primary-color: #ff761c;
+  --primary-color: #c12c00;
   --primary-color-text: #973c00;
   --primary-color-background: #ff761c10;
   --primary-color-hover: #ff6500;
@@ -42,12 +42,6 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
-}
-
-nav {
-  top: 0;
-  position: sticky;
-  background-color: white;
 }
 
 li {

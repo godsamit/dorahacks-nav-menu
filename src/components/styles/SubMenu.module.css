@@ -37,7 +37,7 @@
   }
 
   .subMenu li:hover {
-    background-color: var(--primary-color-background);
+    background-color: var(--primary-color-back);
   }
 }
 
