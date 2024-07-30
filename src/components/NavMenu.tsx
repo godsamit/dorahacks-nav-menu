@@ -7,6 +7,9 @@ export function NavMenu ({ items }: { items : MenuItemType[] }) {
   const [currentIndex, handleKeyDown] = useNavMenuBar(items);
 
   return <nav className={`${classes.nav}`}>
+    <div>
+      <IconDoraLogo />
+    </div>
     <menu 
       className={`flex ${classes.menu}`}
       role="menubar"

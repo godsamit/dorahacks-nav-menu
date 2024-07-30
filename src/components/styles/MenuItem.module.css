@@ -1,24 +1,40 @@
+.itemButton {
+  display: block;
+  width: 100%;
+}
+
 .itemButton > div {
   display: flex;
   height: 1.5rem;
   align-items: baseline;
-  gap: 0.25rem;
+  gap: 0.3rem;
 }
 
 .itemButton > div > div {
   height: 1.5rem;
   display: flex;
   align-items: center;
+  white-space: nowrap;
 }
 
 .itemButton > div svg {
-  transition: all 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
   max-width: 1.2rem;
   max-height: 1.2rem;
   top: 0.2rem;
   position: relative;
 }
 
-.open{
-  transform: rotate(180deg);
+.open {
+  padding-bottom: 1.5rem;
+}
+
+@media (min-width: 800px) {
+  .open {
+    padding-bottom: 0;
+  }
+}
+
+.open svg:last-child{
+  transform: rotate(-180deg);
 }

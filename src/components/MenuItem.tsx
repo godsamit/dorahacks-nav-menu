@@ -2,7 +2,7 @@ import { RefObject, useContext, useEffect, useRef } from "react";
 import { MenuItemType, LinkMenuItem, ParentMenuItem } from "../types";
 import { SubMenu } from "./SubMenu";
 import { RouteContext } from "../context";
-import { usePrevious, useSubMenu } from "./hooks";
+import { useMediaQueryContext, usePrevious, useSubMenu } from "./hooks";
 import classes from "./styles/MenuItem.module.css";
 
 export function MenuItem ({ 
@@ -52,6 +52,7 @@ function MenuItemLink ({
   const { setRoute } = useContext(RouteContext);
 
   const handleClick = (e) => {
+    e.stopPropagation();
     e.preventDefault();
     if ("href" in item) setRoute(item.href);
   };
@@ -90,41 +91,44 @@ function MenuItemWithSubMenu ({
   depth: number,
   isCurrent: boolean,
 }) {
+  const isLargeScreen = useMediaQueryContext();
+
+  const subMenuOrientation = (depth > 1 && isLargeScreen) ? "horizontal" : "vertical"
+
   const [open, currentIndex, {
     handleMouseEnter,
     handleMouseLeave,
+    handleClick,
     handleBlur,
     handleKeyDown,
-  }] = useSubMenu(item.subMenu, elementRef, depth === 1 ? "vertical" : "horizontal");
+  }] = useSubMenu(item.subMenu, elementRef, subMenuOrientation);
 
   return (
     <li
       role="none"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onClick={handleClick}
       onKeyDown={handleKeyDown}
       onBlur={handleBlur}
     >
       <button
+        className={`${classes.itemButton} ${open ? classes.open : ""}`}
         ref={elementRef as RefObject<HTMLButtonElement>} 
         tabIndex={isCurrent ? 0 : -1}
         role="menu"
       >
-        <div 
-          className={`${classes.itemButton}`}
-        >
-          <div>
+        <div>
           {item.Icon ?? null}
           <div>{item.label}</div>
-          {depth === 1 
-            ? <IconMdiChevronDown className={`${open ? classes.open : ""}`} />
-            : <IconMdiChevronRight className={`${open ? classes.open : ""}`} />
-          }
-          </div>
-          {item.description &&
-            <p>{item.description}</p>
+          {subMenuOrientation === "vertical"
+            ? <IconMdiChevronDown />
+            : <IconMdiChevronRight />
           }
         </div>
+        {item.description &&
+          <p>{item.description}</p>
+        }
       </button>
 
       {"subMenu" in item && 

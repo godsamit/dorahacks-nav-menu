@@ -12,8 +12,11 @@
   -moz-osx-font-smoothing: grayscale;
 
   --text-color: #222;
+  --gray: #ddd;
 
   --primary-color: #ff761c;
+  --primary-color-text: #ab2200;
+  --primary-color-background: #ff761c10;
   --primary-color-hover: #ff6500;
   --box-shadow:
   0.6px 0.6px 0.8px rgba(0, 0, 0, 0.02),
@@ -28,7 +31,6 @@
 * {
   min-height: 0;
   box-sizing: border-box;
-  color: var(--text-color);
 }
 
 body {
@@ -60,14 +62,11 @@ menu {
 
 a {
   text-decoration: none;
+  color: var(--text-color);
 }
 
-.flex {
-  display: flex;
-}
-
-.flex-column {
-  display: flex
+img, svg {
+  display: block;
 }
 
 button {

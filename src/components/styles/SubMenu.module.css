@@ -1,14 +1,44 @@
 .subMenu {
   display: none;
-  position: absolute;
   background-color: white;
-  box-shadow: var(--box-shadow);
   width: 100%;
-  min-width: 20rem;
+  padding-left: 1rem;
+}
+
+@media (min-width: 800px) {
+  .subMenu {
+    position: absolute;
+    box-shadow: var(--box-shadow);
+    min-width: 20rem;
+    padding-left: 0;
+  }
 }
 
 .subMenu p {
   margin-top: 0.25rem;
+  margin-bottom: 0;
+}
+
+.subMenu li {
+  margin-bottom: 2rem;
+}
+
+.subMenu li:last-child {
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 800px) {
+  .subMenu li {
+    padding: 1rem;
+    margin-bottom: 0;
+  }
+  .subMenu li:last-child {
+    margin-bottom: 0;
+  }
+
+  .subMenu li:hover {
+    background-color: var(--primary-color-background);
+  }
 }
 
 .right {

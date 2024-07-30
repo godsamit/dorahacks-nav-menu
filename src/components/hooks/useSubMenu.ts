@@ -3,10 +3,12 @@
 
 import { RefObject, useState } from "react";
 import { useNavMenuBar } from "./useNavMenuBar";
+import { useMediaQueryContext } from "./useMediaQueryContext";
 
 type SubMenuReturnType = [boolean, number, {
   handleMouseEnter: () => void,
   handleMouseLeave: () => void,
+  handleClick: (e: MouseEvent) => void,
   handleBlur: (e: FocusEvent) => void,
   handleKeyDown: (e: KeyboardEvent) => void,
 }]
@@ -19,31 +21,36 @@ export function useSubMenu(
   subMenuDirection: "vertical" | "horizontal"
 ): SubMenuReturnType {
   const [currentIndex, handleNavBarKeyDown, { goToEnd }] = useNavMenuBar(options)
+
   const [open, setOpen] = useState(false);
 
-  const handleMouseEnter = () => setOpen(true);
+  const isLargeScreen = useMediaQueryContext();
 
-  const handleMouseLeave = () => setOpen(false);
-
+  const handleMouseEnter = () => isLargeScreen ? setOpen(true) : null;
+  const handleMouseLeave = () => isLargeScreen ? setOpen(false) : null;
+  const handleClick = (e: MouseEvent) => {
+    e.stopPropagation();
+    setOpen(!open);
+  };
   const handleBlur = (e: FocusEvent) => {
-    const currentTarget = e.currentTarget as HTMLElement;
-    if (!currentTarget.contains(e.relatedTarget as Node)) {
-      setOpen(false);
+    if (isLargeScreen) {
+      const currentTarget = e.currentTarget as HTMLElement;
+      if (!currentTarget.contains(e.relatedTarget as Node)) {
+        setOpen(false);
+      }
     }
-  }
+  };
 
   const openSubMenu = (e: KeyboardEvent) => {
     e.preventDefault();
     e.stopPropagation();
     setOpen(true);
-  }
-
+  };
   const closeSubMenu = (e: KeyboardEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    setOpen(true);
-  }
-
+    setOpen(false);
+  };
   const handleKeyDown = (e: KeyboardEvent) => {
     if (!open) {
       switch(e.code) {
@@ -52,6 +59,7 @@ export function useSubMenu(
           openSubMenu(e);
           break;
       }
+
       if (subMenuDirection === "vertical") {
         switch(e.code) {
           case "ArrowDown": 
@@ -88,13 +96,13 @@ export function useSubMenu(
       }
       handleNavBarKeyDown(e);
     }
-  }
+  };
 
   return [open, currentIndex, {
     handleMouseEnter,
     handleMouseLeave,
+    handleClick,
     handleBlur,
     handleKeyDown,
   }]
-
 }

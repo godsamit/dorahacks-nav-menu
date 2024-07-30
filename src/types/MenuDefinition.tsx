@@ -54,10 +54,12 @@ export const MenuContent: MenuItemType[] = [
           {
             label: "Aptos Grant DAOs",
             href: "/aptosGrantDAO",
+            Icon: <IconDoraAptos />,
             description: "Fund Aptos ecosystems: public goods, infrastructures, and applications with community quadratic governance."
           }, {
             label: "Injective Grant DAOs",
             href: "/injectiveGrantDAO",
+            Icon: <IconDoraInjective />,
             description: "Fund Innovative Defi Protocols with Injective."
           }
         ]

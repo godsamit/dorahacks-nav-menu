@@ -20,12 +20,12 @@ export function useNavMenuBar(options: unknown[]) : NavMenuBarReturnType {
   const goToPrev = () => {
     const index = currentIndex === 0 ? options.length - 1 : currentIndex - 1;
     setCurrentIndex(index);
-  }
+  };
 
   const goToNext = () => {
     const index = currentIndex === options.length - 1 ? 0 : currentIndex + 1;
     setCurrentIndex(index);
-  }
+  };
 
   const handleKeyDown = (e: KeyboardEvent) => {
     e.stopPropagation();
@@ -51,7 +51,7 @@ export function useNavMenuBar(options: unknown[]) : NavMenuBarReturnType {
       default:
         break;
     }
-  }
+  };
 
   return [currentIndex, handleKeyDown, {
     goToStart,
