@@ -37,7 +37,7 @@ export function TaskSummary () {
       </div>
 
       <h2>Code Quality and Reusability with Custom Hooks</h2> 
-      <p>To manage focus within the navbar and submenus like previously mentioned, I implemented two custom hooks: <code>useNavMenuBar.ts</code> and <code>useSubMenu.ts</code>. These hooks implement a <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/Keyboard-navigable_JavaScript_widgets#technique_1_roving_tabindex" target="_blank" aria-label="Roving Index Pattern Documentation">roving tab index pattern</a>and manage keyboard interactions, ensuring consistent logic across different levels of submenus.</p>
+      <p>To manage focus within the navbar and submenus like previously mentioned, I implemented two custom hooks: <code>useNavMenuBar.ts</code> and <code>useSubMenu.ts</code>. These hooks implement a <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/Keyboard-navigable_JavaScript_widgets#technique_1_roving_tabindex" target="_blank" aria-label="Roving Index Pattern Documentation">roving tab index pattern</a> and manage keyboard interactions, ensuring consistent logic across different levels of submenus.</p>
       <p>Additionally, I implemented a React context hook for media queries. This global context prevents each child component from adding an event listener to the window, optimizing performance.</p>
         
       <h2>Unit Tests with Media Query</h2> 
@@ -45,7 +45,7 @@ export function TaskSummary () {
       
       <h2>Auto Import Icons</h2> 
       <p>I used <a href="https://vitejs.dev/" target="_blank" aria-label="Vite website">Vite</a> as the build tool and <a href="https://github.com/unplugin/unplugin-icons" target="_blank" aria-label="unplugin-icon repository">unplugin-icons</a> as the icon library, which supported <b>auto importing</b> icons. You can even auto-import custom icons like <IconDoraAptos /> !</p>
-      <p>This setups allows you to declare icons freely in the navbar definition (<code>src/types/MenuDefinition.tsx</code>), and only the necessary icons are included in the final build</p>
+      <p>This setups allows you to declare icons freely in the navbar definition (<code>src/types/MenuDefinition.tsx</code>), and only the necessary icons are included in the final build.</p>
       <div className={`${classes.imageContainer}`}>
         <a href="./AutoImportIcons.png" target="_blank" aria-label="You can freely declare icons!">
           <img src="./AutoImportIcons.png" alt="You can freely declare icons!" />
