@@ -56,7 +56,7 @@ export function TaskSummary () {
       </div>
       <h2>Some Last Thoughts</h2>
       <p>I also implemented <b>css modules</b> and a very simple <b>responsive design</b> for mobile. Additionally, I implemented some very simple CSS animation for the chevron icon and the sub menus.</p>
-      <p>For this skill assessment, I focused more on functionality than design. However, I have a strong background in design, as showcased in my past work at <a href="samsonliu.me" target="_blank" aria-label="Personal Website">samsonliu.me</a> (password in the resume I sent you).</p>
+      <p>For this skill assessment, I focused more on functionality than design. However, I have a strong background in design, as showcased in my past work at <a href="https://samsonliu.me" target="_blank" aria-label="Personal Website">samsonliu.me</a> (password in the resume I sent you).</p>
     </main>
   )
 }

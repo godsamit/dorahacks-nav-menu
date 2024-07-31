@@ -105,28 +105,11 @@ export function useSubMenu(
           case "ArrowLeft":
           case "ArrowRight":
             return;
-          case "ArrowDown": 
-            openSubMenu(e);
-            break;
-          case "ArrowUp":
-            triggerRef.current?.focus();
-            closeSubMenu(e);
-            break;
         }
       }
 
       if (subMenuDirection === "horizontal") {
         switch(e.code) {
-          case "ArrowUp":
-            e.stopPropagation();
-            e.preventDefault();
-            goToPrev();
-            break;
-          case "ArrowDown": 
-            e.stopPropagation();
-            e.preventDefault();
-            goToNext();
-            break;
           case "ArrowRight": 
             openSubMenu(e);
             break;
@@ -138,6 +121,16 @@ export function useSubMenu(
       }
 
       switch(e.code) {
+        case "ArrowUp":
+          e.stopPropagation();
+          e.preventDefault();
+          goToPrev();
+          break;
+        case "ArrowDown": 
+          e.stopPropagation();
+          e.preventDefault();
+          goToNext();
+          break;
         case "Escape": 
           triggerRef.current?.focus();
           closeSubMenu(e);
