@@ -40,6 +40,7 @@ export function useSubMenu(
     const target = e.target as HTMLElement;
     const relatedDepth = relatedTarget?.dataset?.depth;
     const targetDepth = target?.dataset?.depth
+    // if navigating from a deeper element, subMenu needs to stay open, per ARIA specification 
     if (relatedDepth && targetDepth && relatedDepth > targetDepth) {
       setOpen(true);
     }

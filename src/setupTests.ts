@@ -1,6 +1,6 @@
 // Global mock for matchMedia
 globalThis.matchMedia = globalThis.matchMedia || ((query) => ({
-  matches: (globalThis as any)._mediaMatch ?? false,
+  matches: (globalThis)._mediaMatch ?? false,
   media: query,
   onchange: null,
   addEventListener: (type: string, listener: EventListener) => {

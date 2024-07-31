@@ -20,11 +20,11 @@ describe("Menubar", () => {
 
       // Hover over the "BUILDs" menuitem
       await userEvent.hover(screen.getByTestId(MenuContent[1].label));
-      expect(screen.getByRole("menu")).toBeVisible();
+      expect(screen.getByTestId(`${MenuContent[1].label}-menu`)).toBeVisible();
       // Move hover away
       await userEvent.unhover(screen.getByTestId(MenuContent[1].label));
       await waitFor(() => {
-        expect(screen.queryByRole("menu")).not.toBeInTheDocument();
+        expect(screen.getByTestId(`${MenuContent[1].label}-menu`)).not.toBeVisible();
       });
     });
     test("On desktop view, tabbing and keyboard controls can open and close a menu", async () => {
@@ -40,13 +40,13 @@ describe("Menubar", () => {
 
       // Keyboard control to open the menuitem "BUIDLs"
       await userEvent.keyboard("{arrowright}{enter}");
-      expect(screen.getByRole("menu")).toBeVisible();
+      expect(screen.getByTestId(`${MenuContent[1].label}-menu`)).toBeVisible();
       // Ensure the first item in the menu has focus, to abide by ARIA-rules
       expect(screen.getByTestId(MenuContent[1].subMenu[0].label)).toHaveFocus();
 
       // Keyboard control to escape the just opened item
       await userEvent.keyboard("{escape}");
-      expect(screen.queryByRole("menu")).not.toBeInTheDocument();
+      expect(screen.getByTestId(`${MenuContent[1].label}-menu`)).not.toBeVisible();
     });
   });
 });

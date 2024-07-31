@@ -1,21 +1,24 @@
-import { MenuItemType } from "../types";
+import { ParentMenuItem } from "../types";
 import { MenuItem } from "./MenuItem";
 import classes from "./styles/SubMenu.module.css";
 
 export function SubMenu ({ 
-  items, depth, open, hasTransitionedIn, currentIndex
+  item, depth, open, currentIndex
 }: {
-  items: MenuItemType[],
+  item: ParentMenuItem,
   depth: number, 
   open: boolean, 
   currentIndex: number
 }) {
-  return (open &&
+  // Keeping the component mounted to keep focus state in submenu menuItems
+  return (
     <menu
       role="menu"
       className={`${classes.subMenu} ${depth === 1 ? classes.down : classes.right} ${open && classes.open}`}
+      style={{ visibility: open ? "visible" : "hidden"}}
+      data-testid={`${item.label}-menu`}
     >
-      {items.map((item, index) => (
+      {item.subMenu.map((item, index) => (
         <MenuItem 
           key={item.label}
           item={item} 

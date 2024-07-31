@@ -2,6 +2,7 @@
 
 .nav {
   width: 100%;
+  height: 100vh;
   box-shadow: var(--box-shadow);
   display: flex;
   flex-direction: column;
@@ -13,6 +14,7 @@
 
 @media (min-width: 800px) {
   .nav {
+    height: auto;
     top: 0;
     position: sticky;
     flex-direction: row;
@@ -20,11 +22,21 @@
   }
 }
 
+.nav svg {
+  display: block;
+}
+
+.nav a {
+  text-decoration: none;
+  color: var(--text-color);
+}
+
 /* NavBar */
 
 /* Dorahacks Icon, with button to expand/collapse on mobile */
 
 .nav > div:first-child {
+  flex: 0 0 auto;
   padding: 1rem;
   width: 100%;
   display: flex;
@@ -53,7 +65,7 @@
 /* Outmost Menu Bar */
 
 .nav > menu {
-  height: 100vh;
+  flex: 1 1 auto;
   overflow: auto;
 }
 
@@ -112,6 +124,8 @@
 
 .menu li {
   position: relative;
+  display: block;
+  font-weight: bold;
 }
 
 @media (min-width: 800px) {

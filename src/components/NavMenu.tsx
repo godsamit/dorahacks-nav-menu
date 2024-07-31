@@ -33,6 +33,7 @@ export function NavMenu ({ items }: { items : MenuItemType[] }) {
         </button>
       )}
     </div>
+    {/* Keeping the component mounted to keep focus state in submenus */}
     <menu 
       className={`flex ${classes.menu} ${open ? classes.open : ""}`}
       role="menubar"

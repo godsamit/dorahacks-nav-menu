@@ -133,7 +133,7 @@ function MenuItemWithSubMenu ({
       {"subMenu" in item && 
         <SubMenu 
           depth={depth}
-          items={item.subMenu}
+          item={item}
           open={open}
           currentIndex={currentIndex}
         />

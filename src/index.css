@@ -39,34 +39,10 @@ body {
   min-height: 100vh;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-li {
-  display: block;
-  font-weight: bold;
-}
-
 menu {
   margin-block-start: 0;
   margin-block-end: 0;
   padding-inline-start: 0;
-}
-
-nav a {
-  text-decoration: none;
-  color: var(--text-color);
-}
-
-img, svg {
-  display: block;
-}
-
-main {
-  width: 65%;
-  margin: 10rem auto;
 }
 
 button {

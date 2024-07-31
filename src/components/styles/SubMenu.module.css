@@ -1,8 +1,10 @@
 .subMenu {
-  display: none;
   background-color: white;
   width: 100%;
   padding-left: 1rem;
+  max-height: 0;
+  visibility: hidden;
+  transition: max-height 0.3s ease;
 }
 
 @media (min-width: 800px) {
@@ -37,7 +39,7 @@
   }
 
   .subMenu li:hover {
-    background-color: var(--primary-color-back);
+    background-color: var(--primary-color-background);
   }
 }
 
@@ -53,4 +55,7 @@
 
 .open {
   display: block;
+  visibility: visible;
+  max-height: 1000px;
+  transition: max-height none;
 }
